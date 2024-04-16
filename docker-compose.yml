@@ -1,16 +1,16 @@
 version: "3.9"
 services:
-  liquidation-db:
+  findadev-db:
     image: postgres
     restart: always
-    container_name: liquidation-db
+    container_name: findadev-db
     ports:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: elismoist
-      PGDATA: /data/liquidation
+      PGDATA: /data/findadev
     volumes:
-      - postgres:/data/postgres
+      - postgres:/data/findadev
 
 volumes:
   postgres:

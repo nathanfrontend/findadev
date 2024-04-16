@@ -108,7 +108,7 @@ export function Header() {
             height="60"
             alt="the application icon of a magnifying glass"
           />
-          Reclaimed
+          findadev.io
         </Link>
 
         <nav className="flex gap-8">
@@ -128,7 +128,7 @@ export function Header() {
         <div className="flex items-center gap-4">
           {isLoggedIn && <AccountDropdown />}
           {!isLoggedIn && (
-            <Button onClick={() => signIn()} variant="link">
+            <Button onClick={() => signIn("google")} variant="link">
               <LogInIcon className="mr-2" /> Sign In
             </Button>
           )}
