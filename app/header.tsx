@@ -119,7 +119,7 @@ export function Header() {
               </Link>
 
               <Link className="hover:underline" href="/your-rooms">
-                Your Watchlist
+                Your Rooms
               </Link>
             </>
           )}

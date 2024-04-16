@@ -80,3 +80,4 @@ export const devRoom = pgTable("room", {
   tags: text("tags").notNull(),
   githubRepo: text("githubRepo"),
 });
+export type Room = typeof devRoom.$inferSelect;
