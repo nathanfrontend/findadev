@@ -4,6 +4,7 @@ import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import RoomCard from "./room-card";
 import Image from "next/image";
+import SearchBar from "./search-bar";
 export default async function Browse({
   searchParams,
 }: {
@@ -11,7 +12,6 @@ export default async function Browse({
 }) {
   unstable_noStore();
   const rooms = await getRooms(searchParams.search);
-  console.log(rooms);
   return (
     <main className="min-h-screen p-16">
       <div className="flex justify-between items-center mb-8">
@@ -20,7 +20,9 @@ export default async function Browse({
           <Link href="/create-room">Create Room</Link>
         </Button>
       </div>
-      <div className="mb-8"></div>
+      <div className="mb-8">
+        <SearchBar />
+      </div>
       <div className="grid grid-cols-3 gap-4">
         {rooms.map((room) => {
           return <RoomCard key={room.id} room={room} />;

@@ -13,32 +13,47 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { Check, ChevronsUpDown } from "lucide-react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
-
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { createRoomAction } from "./actions";
 import { Textarea } from "@/components/ui/textarea";
+import { FancyMultiSelect, TAGS } from "@/components/ui/multi-select";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
   description: z.string().min(1).max(250),
   githubRepo: z.string().min(1).max(50),
-  tags: z.string().min(1).max(50),
+  tags: z.string().array().min(1).max(50),
 });
 
 export function CreateRoomForm() {
   const { toast } = useToast();
-
   const router = useRouter();
-
+  const [selected, setSelected] = useState<any>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
       githubRepo: "",
-      tags: "",
+      tags: [],
     },
   });
 
@@ -111,10 +126,14 @@ export function CreateRoomForm() {
           control={form.control}
           name="tags"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="flex flex-col">
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="typescript, nextjs, tailwind" />
+                <FancyMultiSelect
+                  selected={selected}
+                  setSelected={setSelected}
+                  form={form}
+                />
               </FormControl>
               <FormDescription>
                 List your programming languages, frameworks, libraries so people
@@ -124,7 +143,6 @@ export function CreateRoomForm() {
             </FormItem>
           )}
         />
-
         <Button type="submit">Submit</Button>
       </form>
     </Form>

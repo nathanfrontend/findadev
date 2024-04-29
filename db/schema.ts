@@ -77,7 +77,19 @@ export const devRoom = pgTable("room", {
     .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
   description: text("description"),
-  tags: text("tags").notNull(),
+  tags: text("tags").array().notNull(),
+  githubRepo: text("githubRepo"),
+});
+
+export const devTags = pgTable("devTags", {
+  id: uuid("id")
+    .default(sql`gen_random_uuid()`)
+    .notNull()
+    .primaryKey(),
+
+  name: text("name").notNull(),
+  description: text("description"),
+  tags: text("tags").array().notNull(),
   githubRepo: text("githubRepo"),
 });
 export type Room = typeof devRoom.$inferSelect;

@@ -1,14 +1,24 @@
 import { db } from "@/db";
 import { Room, devRoom } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { like } from "drizzle-orm";
+
+import { like, ilike, or, eq, inArray, arrayContains } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
 
 export async function getRooms(search: string | undefined) {
-  const where = search ? like(devRoom.tags, `%${search}%`) : undefined;
-  const rooms = await db.query.devRoom.findMany({
-    where,
-  });
+  // const isArray: string[] = (search as string)
+  //   .split(",")
+  //   .map((item) => item.trim());
+  // console.log(isArray.length);
+  const rooms = await db
+    .select()
+    .from(devRoom)
+    .where(
+      or(
+        search ? like(devRoom.tags, `%${search}%`) : undefined,
+        search ? like(devRoom.name, `%${search}%`) : undefined,
+      ),
+    );
+
   return rooms;
 }
 
