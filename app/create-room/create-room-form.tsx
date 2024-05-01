@@ -1,6 +1,6 @@
 "use client";
 
-import { z } from "zod";
+import { ZodType, ZodTypeAny, ZodTypeDef, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -13,28 +13,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { Check, ChevronsUpDown } from "lucide-react";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { createRoomAction } from "./actions";
 import { Textarea } from "@/components/ui/textarea";
 import { FancyMultiSelect } from "@/components/ui/multi-select";
-import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -42,12 +26,12 @@ const formSchema = z.object({
   githubRepo: z.string().min(1).max(50),
   tags: z.string().array().min(1).max(50),
 });
-
+export type form = z.infer<typeof formSchema>;
 export function CreateRoomForm() {
   const { toast } = useToast();
   const router = useRouter();
-  const [selected, setSelected] = useState<any>([]);
-  const form = useForm<z.infer<typeof formSchema>>({
+
+  const form = useForm<form>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -129,11 +113,7 @@ export function CreateRoomForm() {
             <FormItem className="flex flex-col">
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <FancyMultiSelect
-                  selected={selected}
-                  setSelected={setSelected}
-                  form={form}
-                />
+                <FancyMultiSelect form={form} />
               </FormControl>
               <FormDescription>
                 List your programming languages, frameworks, libraries so people

@@ -5,16 +5,17 @@ import { Badge } from "@/components/ui/badge";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { CommandList, Command as CommandPrimitive } from "cmdk";
 import { TAGS, FRAMEWORKS } from "@/data-access/FRAMEWORKS";
+import { useState } from "react";
+import { form } from "@/app/create-room/create-room-form";
+import { UseFormReturn } from "react-hook-form";
 
 type propsTags = {
-  setSelected: React.Dispatch<React.SetStateAction<TAGS[]>>;
-  selected: TAGS[];
-  form: any;
+  form: UseFormReturn<form>;
 };
-export function FancyMultiSelect({ selected, setSelected, form }: propsTags) {
+export function FancyMultiSelect({ form }: propsTags) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-
+  const [selected, setSelected] = useState<TAGS[]>([]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((framework: TAGS) => {
