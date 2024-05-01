@@ -10,7 +10,6 @@ export default async function EditRoomPage({
   unstable_noStore();
 
   const room = await getRoom(params.roomId);
-  console.log(room);
 
   if (!room) {
     return <div>Room not found</div>;
