@@ -65,6 +65,17 @@ function SearchBar() {
         <Button type="submit">
           <SearchIcon className="mr-2" /> Search
         </Button>
+        {query.get("search") && (
+          <Button
+            variant="link"
+            onClick={() => {
+              form.setValue("search", "");
+              router.push("/");
+            }}
+          >
+            Clear
+          </Button>
+        )}
       </form>
     </Form>
   );
