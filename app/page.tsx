@@ -3,8 +3,6 @@ import Image from "next/image";
 import "./globals.css";
 import Link from "next/link";
 export default async function Home() {
-  const items = await db.query.test.findMany();
-
   return (
     <div className="">
       <div

@@ -4,43 +4,8 @@ import { X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { CommandList, Command as CommandPrimitive } from "cmdk";
+import { TAGS, FRAMEWORKS } from "@/data-access/FRAMEWORKS";
 
-export type TAGS = Record<"value" | "label", string>;
-
-const FRAMEWORKS = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "wordpress",
-    label: "WordPress",
-  },
-  {
-    value: "express.js",
-    label: "Express.js",
-  },
-  {
-    value: "nest.js",
-    label: "Nest.js",
-  },
-] satisfies TAGS[];
 type propsTags = {
   setSelected: React.Dispatch<React.SetStateAction<TAGS[]>>;
   selected: TAGS[];
@@ -90,7 +55,7 @@ export function FancyMultiSelect({ selected, setSelected, form }: propsTags) {
   );
 
   const selectables = FRAMEWORKS.filter(
-    (framework) => !selected.includes(framework),
+    (framework) => !framework.value.includes(inputValue),
   );
 
   return (

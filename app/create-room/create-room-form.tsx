@@ -33,7 +33,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { createRoomAction } from "./actions";
 import { Textarea } from "@/components/ui/textarea";
-import { FancyMultiSelect, TAGS } from "@/components/ui/multi-select";
+import { FancyMultiSelect } from "@/components/ui/multi-select";
 import { useState } from "react";
 
 const formSchema = z.object({

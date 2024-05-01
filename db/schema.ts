@@ -87,9 +87,9 @@ export const devTags = pgTable("devTags", {
     .notNull()
     .primaryKey(),
 
-  name: text("name").notNull(),
-  description: text("description"),
-  tags: text("tags").array().notNull(),
-  githubRepo: text("githubRepo"),
+  label: text("label").notNull(),
+  value: text("value").notNull(),
+  count: text("count").notNull(),
 });
 export type Room = typeof devRoom.$inferSelect;
+export type TAGS = typeof devTags.$inferSelect;
