@@ -11,11 +11,16 @@ import { UseFormReturn } from "react-hook-form";
 
 type propsTags = {
   form: UseFormReturn<form>;
+  edit: boolean;
 };
-export function FancyMultiSelect({ form }: propsTags) {
+
+export function FancyMultiSelect({ form, edit }: propsTags) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = useState<TAGS[]>([]);
+  const tags = form.getValues("tags");
+  const [selected, setSelected] = useState<TAGS[]>(
+    !edit ? [] : tags.map((tags) => ({ label: tags, value: tags, count: "" })),
+  );
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((framework: TAGS) => {
