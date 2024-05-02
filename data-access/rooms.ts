@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { Room, devRoom } from "@/db/schema";
 
-import { like, ilike, or, eq, inArray, arrayContains } from "drizzle-orm";
+import { like, or, eq } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
 
 export async function getRooms(search: string | undefined) {
