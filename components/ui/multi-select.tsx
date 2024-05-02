@@ -11,7 +11,7 @@ import { UseFormReturn } from "react-hook-form";
 
 type propsTags = {
   form: UseFormReturn<form>;
-  edit: boolean;
+  edit?: boolean;
 };
 
 export function FancyMultiSelect({ form, edit }: propsTags) {
