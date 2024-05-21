@@ -3,7 +3,7 @@ export default defineConfig({
   schema: "./db/schema.ts",
   driver: "pg",
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL!,
+    connectionString: process.env.POSTGRES_URL!,
   },
   verbose: true,
   strict: true,
