@@ -69,7 +69,7 @@ export const verificationTokens = pgTable(
 
 export const devRoom = pgTable("room", {
   id: uuid("id")
-    .default(sql`unique_idx`)
+    .default(sql`gen_random_uuid()`)
     .notNull()
     .primaryKey(),
   userId: text("userId")
