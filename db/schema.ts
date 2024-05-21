@@ -7,7 +7,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
-import { sql } from "@vercel/postgres";
+import { sql } from "drizzle-orm";
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -68,7 +68,10 @@ export const verificationTokens = pgTable(
 );
 
 export const devRoom = pgTable("room", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id")
+    .default(sql`unique_idx`)
+    .notNull()
+    .primaryKey(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -79,7 +82,11 @@ export const devRoom = pgTable("room", {
 });
 
 export const devTags = pgTable("devTags", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id")
+    .default(sql`gen_random_uuid()`)
+    .notNull()
+    .primaryKey(),
+
   label: text("label").notNull(),
   value: text("value").notNull(),
   count: text("count").notNull(),
