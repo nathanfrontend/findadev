@@ -25,8 +25,12 @@ const formSchema = z.object({
   description: z.string().min(1).max(250),
   githubRepo: z.string().min(1).max(50),
   tags: z.string().array().min(1).max(50),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
-export function EditRoomForm({ room }: { room: Room }) {
+type form = z.infer<typeof formSchema>;
+
+export function EditRoomForm({ room }: { room: Room["room"] }) {
   const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,11 +39,16 @@ export function EditRoomForm({ room }: { room: Room }) {
       description: room.description ?? "",
       githubRepo: room.githubRepo ?? "",
       tags: room.tags,
+      createdAt: room.createdAt ?? "",
+      updatedAt: room.updatedAt ?? "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await editRoomAction({ id: params.roomId as string, ...values });
+    await editRoomAction({
+      id: params.roomId as string,
+      ...values,
+    });
     toast({
       title: "Room Updated",
       description: "Your room was successfully updated",

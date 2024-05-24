@@ -1,6 +1,6 @@
 "use client";
 
-import { ZodType, ZodTypeAny, ZodTypeDef, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,8 @@ const formSchema = z.object({
   description: z.string().min(1).max(250),
   githubRepo: z.string().min(1).max(50),
   tags: z.string().array().min(1).max(50),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 export type form = z.infer<typeof formSchema>;
 export function CreateRoomForm() {
