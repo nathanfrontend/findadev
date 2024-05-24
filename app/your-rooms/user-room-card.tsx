@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { deleteRoomAction } from "./actions";
 
-export function UserRoomCard({ room }: { room: Room }) {
+export function UserRoomCard({ room }: { room: Room["room"] }) {
   return (
     <Card>
       <CardHeader className="relative">
