@@ -156,7 +156,7 @@ export const devTags = pgTable("devTags", {
   value: text("value").notNull(),
   count: text("count").notNull(),
 });
-export type Room = { room: typeof devRoom.$inferSelect } & {
-  user: typeof users.$inferSelect;
+export type Room = typeof devRoom.$inferSelect & {
+  owner?: typeof users.$inferSelect;
 };
 export type TAGS = typeof devTags.$inferSelect;

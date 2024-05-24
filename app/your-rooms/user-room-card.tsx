@@ -10,9 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Room } from "@/db/schema";
-import { GithubIcon, PencilIcon, TrashIcon } from "lucide-react";
+import { Dot, GithubIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { TagsList } from "@/components/tags-list";
-import { splitTags } from "@/lib/utils";
+import { splitTags, timeAgo } from "@/lib/utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,18 +25,43 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteRoomAction } from "./actions";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export function UserRoomCard({ room }: { room: Room["room"] }) {
+export function UserRoomCard({ room }: { room: Room }) {
+  const { owner } = room;
+
   return (
     <Card>
       <CardHeader className="relative">
-        <Button className="absolute top-2 right-2" size="icon">
+        {/* <Button className="absolute top-2 right-2" size="icon">
           <Link href={`/edit-room/${room.id}`}>
             <PencilIcon />
           </Link>
-        </Button>
+        </Button> */}
+        <div className="mb-2 flex items-center">
+          <div className="flex items-center ">
+            {" "}
+            <Avatar className="mr-2 h-8 w-8">
+              <AvatarImage src={owner?.image ?? ""} />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Link
+              href={"/profile"}
+              className="text-sm font-bold hover:cursor-pointer  "
+            >
+              {owner?.name}
+            </Link>
+            <Dot className="text-gray-400" />
+            <p className="text-sm font-light text-gray-400 ">
+              {" "}
+              {timeAgo(room.createdAt.toISOString())}
+            </p>
+          </div>
+        </div>
         <CardTitle>{room.name}</CardTitle>
-        <CardDescription>{room.description}</CardDescription>
+        <CardDescription className="text-sm line-clamp-3">
+          {room.description}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <TagsList tags={splitTags(room.tags)} />
@@ -54,7 +79,7 @@ export function UserRoomCard({ room }: { room: Room["room"] }) {
       </CardContent>
       <CardFooter className="flex gap-2">
         <Button asChild>
-          <Link href={`/rooms/${room.id}`}>Join Room</Link>
+          <Link href={`/devRooms/${room.id}`}>Join devRoom</Link>
         </Button>
 
         <AlertDialog>

@@ -44,7 +44,6 @@ export function CreateRoomForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("hello");
     const room = await createRoomAction(values);
     toast({
       title: "Room Created",

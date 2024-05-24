@@ -25,7 +25,7 @@ export default async function Browse({
       </div>
       <div className="grid grid-cols-3 gap-4">
         {rooms.map((room) => {
-          return <RoomCard key={room.room.id} room={room} />;
+          return <RoomCard key={room.id} room={room} />;
         })}
       </div>
       {rooms.length === 0 && (

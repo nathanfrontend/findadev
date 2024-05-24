@@ -7,6 +7,7 @@ import Image from "next/image";
 import SearchBar from "../browse/search-bar";
 import RoomCard from "../browse/room-card";
 import { UserRoomCard } from "./user-room-card";
+import { Room } from "@/db/schema";
 
 export default async function YourRoomsPage() {
   unstable_noStore();

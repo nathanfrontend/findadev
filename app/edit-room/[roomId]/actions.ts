@@ -6,7 +6,7 @@ import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function editRoomAction(roomData: Omit<Room["room"], "userId">) {
+export async function editRoomAction(roomData: Omit<Room, "userId">) {
   const session = await getSession();
 
   if (!session) {

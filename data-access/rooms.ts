@@ -5,31 +5,23 @@ import { like, or, eq } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
 
 export async function getRooms(search: string | undefined) {
-  // const isArray: string[] = (search as string)
-  //   .split(",")
-  //   .map((item) => item.trim());
-  // console.log(isArray.length);
-  const rooms = await db
-    .select()
-    .from(devRoom)
-    .innerJoin(users, eq(users.id, devRoom.userId))
-    .where(
-      or(
-        search ? like(devRoom.tags, `%${search}%`) : undefined,
-        search ? like(devRoom.name, `%${search}%`) : undefined,
-      ),
-    );
+  const where = search ? like(devRoom.tags, `%${search}%`) : undefined;
+  const rooms = await db.query.devRoom.findMany({
+    where,
+    with: { owner: true },
+  });
 
   return rooms;
 }
 
-export async function getUserRooms() {
+export async function getUserRooms(): Promise<Room[]> {
   const session = await getSession();
   if (!session) {
     throw new Error("User not authenticated");
   }
   const rooms = await db.query.devRoom.findMany({
     where: eq(devRoom.userId, session.user.id),
+    with: { owner: true },
   });
 
   return rooms;
@@ -46,7 +38,7 @@ export async function deleteRoom(roomId: string) {
 }
 
 export async function createRoom(
-  roomData: Omit<Room["room"], "id" | "userId">,
+  roomData: Omit<Room, "id" | "userId">,
   userId: string,
 ) {
   const inserted = await db
@@ -56,7 +48,7 @@ export async function createRoom(
   return inserted[0];
 }
 
-export async function editRoom(roomData: Room["room"]) {
+export async function editRoom(roomData: Room) {
   const updated = await db
     .update(devRoom)
     .set(roomData)

@@ -19,7 +19,7 @@ import { generateTokenAction } from "./[roomId]/actions";
 
 const apiKey = process.env.NEXT_PUBLIC_GET_STREAM_API_KEY!;
 
-export function DevFinderVideo({ room }: { room: Room["room"] }) {
+export function DevFinderVideo({ room }: { room: Room }) {
   const session = useSession();
   const [client, setClient] = useState<StreamVideoClient | null>(null);
   const [call, setCall] = useState<Call | null>(null);

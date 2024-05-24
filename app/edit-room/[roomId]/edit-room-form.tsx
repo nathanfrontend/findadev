@@ -30,7 +30,7 @@ const formSchema = z.object({
 });
 type form = z.infer<typeof formSchema>;
 
-export function EditRoomForm({ room }: { room: Room["room"] }) {
+export function EditRoomForm({ room }: { room: Room }) {
   const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
