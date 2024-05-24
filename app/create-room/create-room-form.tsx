@@ -25,8 +25,8 @@ const formSchema = z.object({
   description: z.string().min(1).max(250),
   githubRepo: z.string().min(1).max(50),
   tags: z.string().array().min(1).max(50),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.date().default(new Date()),
+  updatedAt: z.date().default(new Date()),
 });
 export type form = z.infer<typeof formSchema>;
 export function CreateRoomForm() {
@@ -44,6 +44,7 @@ export function CreateRoomForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("hello");
     const room = await createRoomAction(values);
     toast({
       title: "Room Created",

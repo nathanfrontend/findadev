@@ -12,7 +12,7 @@ export function timeAgo(dateString: string) {
   // started time conversion, but the backends in UTC it seems with the front end being in BST. So wont spend any more time converting.
   // Calculate the difference in milliseconds
   const eventDate = new Date(dateString);
-  console.log(eventDate);
+
   const currentDate = new Date();
   const differenceInTime = currentDate.getTime() - eventDate.getTime();
   // Convert the difference from milliseconds to days and hours

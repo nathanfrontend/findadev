@@ -5,10 +5,7 @@ export default defineConfig({
   driver: "pg",
   out: "./db/migrations",
   dbCredentials: {
-    connectionString:
-      process.env.NODE_ENV === "production"
-        ? process.env.POSTGRES_URL!
-        : process.env.POSTGRES_URL!,
+    connectionString: process.env.DATABASE_URL!,
   },
   verbose: true,
   strict: true,

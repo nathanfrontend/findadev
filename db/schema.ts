@@ -17,8 +17,8 @@ export const users = pgTable("user", {
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image"),
-  privacy: boolean("privacy"),
+  image: text("image").notNull(),
+  privacy: boolean("privacy").default(false),
 });
 
 export const userRelations = relations(users, ({ many }) => ({
@@ -107,10 +107,10 @@ export const devRoom = pgTable("room", {
     .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
   description: text("description"),
-  tags: text("tags").notNull(),
-  // .array()
-  // .notNull()
-  // .default(sql`ARRAY[]::text[]`),
+  tags: text("tags")
+    .array()
+    .notNull()
+    .default(sql`ARRAY[]::text[]`),
   githubRepo: text("githubRepo"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
