@@ -1,13 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { getRooms, getUserRooms } from "@/data-access/rooms";
+import { getUserRooms } from "@/data-access/rooms";
 import { unstable_noStore } from "next/cache";
 import Link from "next/link";
-
 import Image from "next/image";
-import SearchBar from "../browse/search-bar";
-import RoomCard from "../browse/room-card";
 import { UserRoomCard } from "./user-room-card";
-import { Room } from "@/db/schema";
 
 export default async function YourRoomsPage() {
   unstable_noStore();

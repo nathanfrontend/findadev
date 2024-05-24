@@ -79,7 +79,7 @@ export function UserRoomCard({ room }: { room: Room }) {
       </CardContent>
       <CardFooter className="flex gap-2">
         <Button asChild>
-          <Link href={`/devRooms/${room.id}`}>Join devRoom</Link>
+          <Link href={`/devRooms/${room.id}`}>Join Room</Link>
         </Button>
 
         <AlertDialog>
