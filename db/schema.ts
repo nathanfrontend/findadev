@@ -32,13 +32,13 @@ export const follows = pgTable(
   {
     userId: text("userId")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" })
+      .primaryKey(),
     targetUserId: text("targetUserId").notNull(),
   },
   (table) => ({
     user: index("usersFollowing_user_idx").on(table.userId),
     following: index("usersFollowing_following_idx").on(table.targetUserId),
-    pk: primaryKey(table.userId, table.targetUserId),
   }),
 );
 export const followsRelations = relations(follows, ({ one }) => ({
