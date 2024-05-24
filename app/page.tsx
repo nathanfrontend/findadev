@@ -26,10 +26,10 @@ export default async function Home() {
             height="200"
             alt="dev finder logo"
           />
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
             Find other devs to pair program with online
           </h1>
-          <p className=" mt-6 text-lg leading 8 text-gray-600 dark:text-gray-200">
+          <p className=" mt-6 text-md md:text-lg leading 8 text-gray-600 dark:text-gray-200">
             This is more than just screen sharing. This is a knowledge sharing
             platform. Together, share ideas, develop skills and build solutions.
           </p>
