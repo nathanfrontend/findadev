@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { Room, devRoom } from "@/db/schema";
+import { Room, devRoom, users } from "@/db/schema";
 
 import { like, or, eq } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
@@ -12,6 +12,7 @@ export async function getRooms(search: string | undefined) {
   const rooms = await db
     .select()
     .from(devRoom)
+    .innerJoin(users, eq(users.id, devRoom.userId))
     .where(
       or(
         search ? like(devRoom.tags, `%${search}%`) : undefined,
@@ -45,7 +46,7 @@ export async function deleteRoom(roomId: string) {
 }
 
 export async function createRoom(
-  roomData: Omit<Room, "id" | "userId">,
+  roomData: Omit<Room["room"], "id" | "userId">,
   userId: string,
 ) {
   const inserted = await db
@@ -55,7 +56,7 @@ export async function createRoom(
   return inserted[0];
 }
 
-export async function editRoom(roomData: Room) {
+export async function editRoom(roomData: Room["room"]) {
   const updated = await db
     .update(devRoom)
     .set(roomData)

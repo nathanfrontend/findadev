@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <Analytics />
+          {/* <Analytics /> */}
           <Toaster />
           <NextTopLoader />
           <Header />
