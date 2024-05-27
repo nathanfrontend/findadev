@@ -19,6 +19,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { createRoomAction } from "./actions";
 import { Textarea } from "@/components/ui/textarea";
 import { FancyMultiSelect } from "@/components/ui/multi-select";
+import { useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Slash } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -32,7 +35,7 @@ export type form = z.infer<typeof formSchema>;
 export function CreateRoomForm() {
   const { toast } = useToast();
   const router = useRouter();
-
+  const session = useSession();
   const form = useForm<form>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,24 +54,44 @@ export function CreateRoomForm() {
     });
     router.push(`/rooms/${room.id}`);
   }
-
+  // session.data;
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Dev Finder Is Awesome" />
-              </FormControl>
-              <FormDescription>This is your public room name.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex items-center space-x-4 ">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <Button variant="ghost" disabled>
+                  <Avatar className="mr-2 h-8 w-8">
+                    <AvatarImage src={session?.data?.user.image ?? ""} />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  {session?.data?.user.name!}
+                </Button>
+              </FormItem>
+            )}
+          />
+          <Slash />
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Dev Finder Is Awesome" />
+                </FormControl>
+                <FormDescription>
+                  This is your public room name.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}

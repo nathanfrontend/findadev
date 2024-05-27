@@ -1,6 +1,7 @@
 import Image from "next/image";
 import "./globals.css";
 import Link from "next/link";
+import { getSession } from "@/lib/auth";
 
 export default async function Home() {
   return (
@@ -26,7 +27,7 @@ export default async function Home() {
             height="200"
             alt="dev finder logo"
           />
-          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
+          <h1 className="text-4xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
             Find other devs to pair program with online
           </h1>
           <p className=" mt-6 text-md md:text-lg leading 8 text-gray-600 dark:text-gray-200">

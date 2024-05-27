@@ -17,51 +17,52 @@ export default function RoomCard({ room }: { room: Room }) {
   const { owner } = room;
 
   return (
-    <Card className="transition duration-300 ease-in-out hover:bg-gray-900">
-      <CardHeader>
-        <div className="mb-2 flex items-center">
-          <div className="flex items-center ">
-            {" "}
-            <Avatar className="mr-2 h-8 w-8">
-              <AvatarImage src={owner?.image ?? ""} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <Link
-              href={"/profile"}
-              className="text-sm font-bold hover:cursor-pointer  "
-            >
-              {owner?.name}
-            </Link>
-            <Dot className="text-gray-400" />
-            <p className="text-sm font-light text-gray-400 ">
-              {" "}
-              {timeAgo(room.createdAt.toISOString())}
-            </p>
-          </div>
-        </div>
-
-        <CardTitle>{room.name}</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <p className="text-sm line-clamp-3">{room.description}</p>
-        <TagsList tags={splitTags(room.tags)} />
-        {room.githubRepo && (
+    <div>
+      <div className="mb-2 flex items-center my-8 w-full">
+        <div className="flex items-center ">
+          {" "}
+          <Avatar className="mr-2 h-8 w-8">
+            <AvatarImage src={owner?.image ?? ""} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
           <Link
-            href={room.githubRepo}
-            className="flex items-center gap-2 w-max"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={"/profile"}
+            className="text-sm font-bold hover:cursor-pointer  "
           >
-            <GithubIcon />
-            Github Project
+            {owner?.name}
           </Link>
-        )}
-      </CardContent>
-      <CardFooter>
-        <Button asChild>
-          <Link href={`/rooms/${room.id}`}>Join Room</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+          <Dot className="text-gray-400" />
+          <p className="text-sm font-light text-gray-400 ">
+            {" "}
+            {timeAgo(room.createdAt.toISOString())}
+          </p>
+        </div>
+      </div>
+      <Card className="transition duration-300 ease-in-out hover:bg-gray-900 h-[468px] w-[578px] flex flex-col">
+        <CardHeader>
+          <CardTitle>{room.name}</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
+          <p className="text-sm line-clamp-3">{room.description}</p>
+          <TagsList tags={splitTags(room.tags)} />
+          {room.githubRepo && (
+            <Link
+              href={room.githubRepo}
+              className="flex items-center gap-2 w-max"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GithubIcon />
+              Github Project
+            </Link>
+          )}
+        </CardContent>
+        <CardFooter>
+          <Button asChild>
+            <Link href={`/rooms/${room.id}`}>Join Room</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
