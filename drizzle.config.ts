@@ -6,9 +6,7 @@ export default defineConfig({
   out: "./db/migrations",
   dbCredentials: {
     connectionString:
-      process.env.NODE_ENV === "production"
-        ? process.env.POSTGRES_URL!
-        : process.env.POSTGRES_URL!,
+      process.env.NODE_ENV === "production" ? process.env.POSTGRES_URL! : "",
   },
   verbose: true,
   strict: true,

@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { Room, devRoom, users } from "@/db/schema";
+import { Room, comment, devRoom, users } from "@/db/schema";
 
 import { like, or, eq } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
@@ -55,4 +55,17 @@ export async function editRoom(roomData: Room) {
     .where(eq(devRoom.id, roomData.id))
     .returning();
   return updated[0];
+}
+
+export async function createComment(
+  message: string,
+  userId: string,
+  roomId: string,
+) {
+  const inserted = await db
+    .insert(comment)
+    .values({ message, userId, roomId })
+    .returning();
+
+  return inserted[0];
 }

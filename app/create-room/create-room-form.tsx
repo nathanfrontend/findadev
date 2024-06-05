@@ -54,7 +54,7 @@ export function CreateRoomForm() {
     });
     router.push(`/rooms/${room.id}`);
   }
-  // session.data;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

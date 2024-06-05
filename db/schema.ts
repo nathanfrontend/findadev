@@ -123,28 +123,46 @@ export const roomRelations = relations(devRoom, ({ one, many }) => ({
   }),
 }));
 
-// export const group = pgTable("group", {
-//   id: uuid("id")
-//     .default(sql`gen_random_uuid()`)
-//     .notNull()
-//     .primaryKey(),
-//   ownerId: text("userId")
-//     .notNull()
-//     .references(() => users.id, { onDelete: "cascade" }),
-//   name: text("name").notNull(),
-//   description: text("description"),
-//   groupUsers: text("users").array().notNull(),
+export const comment = pgTable("comment", {
+  id: uuid("id")
+    .default(sql`gen_random_uuid()`)
+    .notNull()
+    .primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  roomId: uuid("roomId")
+    .default(sql`gen_random_uuid()`)
+    .notNull()
+    .references(() => devRoom.id, { onDelete: "cascade" }),
 
-//   createdAt: timestamp("createdAt").defaultNow().notNull(),
-//   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
-// });
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+  message: text("description").notNull(),
+});
 
-// export const groupRelations = relations(group, ({ one, many }) => ({
-//   owner: one(users, {
-//     fields: [group.ownerId],
-//     references: [users.id],
-//   }),
-// }));
+export const group = pgTable("group", {
+  id: uuid("id")
+    .default(sql`gen_random_uuid()`)
+    .notNull()
+    .primaryKey(),
+  ownerId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  description: text("description"),
+  groupUsers: text("users").array().notNull(),
+
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+
+export const groupRelations = relations(group, ({ one, many }) => ({
+  owner: one(users, {
+    fields: [group.ownerId],
+    references: [users.id],
+  }),
+}));
 
 export const devTags = pgTable("devTags", {
   id: uuid("id")

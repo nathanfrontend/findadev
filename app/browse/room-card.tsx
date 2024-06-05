@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Comments from "./comments";
 import {
   Card,
   CardContent,
@@ -13,6 +14,7 @@ import { GithubIcon, Dot } from "lucide-react";
 import { TagsList } from "@/components/tags-list";
 import { splitTags, timeAgo } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
 export default function RoomCard({ room }: { room: Room }) {
   const { owner } = room;
 
@@ -56,11 +58,12 @@ export default function RoomCard({ room }: { room: Room }) {
               Github Project
             </Link>
           )}
-        </CardContent>
-        <CardFooter>
           <Button asChild>
             <Link href={`/rooms/${room.id}`}>Join Room</Link>
           </Button>
+        </CardContent>
+        <CardFooter>
+          <Comments id={room.id} />
         </CardFooter>
       </Card>
     </div>
